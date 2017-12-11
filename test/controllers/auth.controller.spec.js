@@ -4,7 +4,7 @@ var authController = require('../../controllers/auth.controller');
 
 describe('AuthController',function(){
 
-    beforeEach(function(){
+    beforeEach(function settingRoles(){
         console.log('Running before each');
         authController.setRoles(['user']);
     })
