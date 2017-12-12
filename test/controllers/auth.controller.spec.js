@@ -16,9 +16,11 @@ describe('AuthController',function(){
         it('should return true if authorized',function(){
             assert.equal(true,authController.isAuthorized('user'));
         })
+        it('should not allow get if not authorized')
+        it('shout allow get if autorized')
     })
 
-    describe('isAuthorizedAsync',function(){
+    describe.skip('isAuthorizedAsync',function(){
         it('should return false if not authorized',function(done){
             authController.isAuthorizedAsync('admin',function(isAuth){
                 assert.equal(false,isAuth);
