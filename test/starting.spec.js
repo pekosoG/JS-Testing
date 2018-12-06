@@ -8,5 +8,17 @@ describe('Basic Mocha Test',function(){
         }catch(err){
             throw({message:'thrown error'});
         }
-    })
+    });
+
+    it('should deal with objects properties',function(){
+        var object =  { name: 'Pekoso', gender: 'male'};
+        object.should.have.property('name').equal('Pekoso');
+    });
+
+    it('should deal with two objects',function(){
+        var object = { name: 'Pekoso', gender: 'male'};
+        var object2 = object;
+
+        object.should.deep.equal(object2);
+    });
 });
