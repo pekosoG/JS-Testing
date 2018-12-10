@@ -1,4 +1,5 @@
 var assert = require('assert');
+var should = require('chai').should();
 
 describe('Basic Mocha Test',function(){
     it('should NOT throw some errors',function(){
@@ -20,5 +21,10 @@ describe('Basic Mocha Test',function(){
         var object2 = object;
 
         object.should.deep.equal(object2);
+    });
+
+    it('should deal with NULL results', function(){
+        var iAmNull = null;
+        should.not.exist(iAmNull);
     });
 });
