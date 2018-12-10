@@ -1,8 +1,12 @@
 var assert = require('assert');
+var authController = require('../../controllers/auth.controller');
+
 var expect = require('chai').expect;
 var should = require('chai').should();
-
-var authController = require('../../controllers/auth.controller');
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+chai.should();
 
 describe('AuthController',function(){
 
@@ -42,5 +46,12 @@ describe('AuthController',function(){
                 })
             }
         })
+    });
+
+    describe('isAuthorized Promise',function(){ //We can add .skip to not test
+        it('should return false if not authorized promise',function(){
+            return authController.isAuthorizedPromised('admin').should.eventually.be.false;
+        })
+        
     });
 });
