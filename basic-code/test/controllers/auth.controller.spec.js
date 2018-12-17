@@ -85,7 +85,7 @@ describe('AuthController',function(){
             //authController.setUser(user);
         });
 
-        it.only('it should render index if authorized',function(){
+        it('it should render index if authorized',function(){
 
             var isAuth = sinon.stub(user,'isAuthorized').returns(true); //.throws();
             
