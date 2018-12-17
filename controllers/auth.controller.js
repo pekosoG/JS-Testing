@@ -20,7 +20,11 @@ function AuthController(){
         })
     }
 
-    return {isAuthorized,isAuthorizedAsync, isAuthorizedPromised, setRoles};
+    function getIndex(req,res){
+        res.render('index');
+    }
+
+    return {isAuthorized,isAuthorizedAsync, isAuthorizedPromised, setRoles, getIndex};
 }
 
 module.exports = AuthController();
