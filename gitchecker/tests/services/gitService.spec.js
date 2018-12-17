@@ -29,8 +29,13 @@ describe('gitService',function(){
                 .onSecondCall().callsArgWith(1,repoResponse).returns(new PassThrough());
 
             return gitService.getUser('pekosog').then(
-                function(user){
+                (user)=>{ //Sin el arrow, nos truena el this.requests because context....
                     //console.log(user);
+                    var params = this.requests.getCall(0).args;
+                    params[0].headers['User-Agent'].should.equal('gitExample');
+
+                    this.requests.getCall(1).args[0].path.should.equal('/users/pekosog/repos');
+
                     user.login.should.equal('pekosoG');
                     user.should.have.property('repos');
                 }
