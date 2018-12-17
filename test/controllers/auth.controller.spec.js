@@ -71,15 +71,33 @@ describe('AuthController',function(){
     });
 
     describe('renderIndex',function(){
-        it('it should render index',function(){
-            var req={};
+
+        var user;
+        
+        beforeEach(function(){
+            user={
+                roles:['user'],
+                isAuthorized:function(neederRole){
+                    return this.roles.indexOf(neederRole)>=0;
+                }
+            }
+            //sinon.spy(user,'isAuthorized');
+            //authController.setUser(user);
+        });
+
+        it.only('it should render index if authorized',function(){
+
+            var isAuth = sinon.stub(user,'isAuthorized').returns(false); //.throws();
+            
+            var req={user:user};
             var res={
                 render:sinon.spy()
             };
 
             authController.getIndex(req,res);
+            isAuth.calledOnce.should.be.true;
             res.render.calledOnce.should.be.true;
-            res.render.firstCall.args[0].should.equal('index');
+            res.render.firstCall.args[0].should.equal('error');
         });
     });
 });
