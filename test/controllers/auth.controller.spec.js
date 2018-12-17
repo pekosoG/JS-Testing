@@ -17,9 +17,23 @@ describe('AuthController',function(){
     })
 
     describe('isAuthorized',function(){
+        var user = {};
+        
+        beforeEach(function(){
+            user={
+                roles:['user'],
+                isAuthorized:function(neederRole){
+                    return this.roles.indexOf(neederRole)>=0;
+                }
+            }
+            sinon.spy(user,'isAuthorized');
+            authController.setUser(user);
+        })
+
         it('should return false if not authorized',function(){
             var isAuth = authController.isAuthorized('admin');
-            //expect(isAuth).to.be.false;
+            //console.log(user.isAuthorized);
+            user.isAuthorized.calledOnce.should.be.true;
             isAuth.should.be.false;
         })
         it('should return true if authorized',function(){
