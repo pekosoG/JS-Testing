@@ -15,18 +15,24 @@ describe('gitService',function(){
 
         it('should return user and repos',function(){
             var gitJson = {login:'pekosoG'};
+            var repoJson = {}
             var gitResponse = new PassThrough();
-
             gitResponse.write(JSON.stringify(gitJson));
             gitResponse.end();
 
-            this.requests.callsArgWith(1,gitResponse).returns(new PassThrough());
+            var repoResponse = new PassThrough();
+            repoResponse.write(JSON.stringify(repoJson));
+            repoResponse.end();
+
+            this.requests
+                .onFirstCall().callsArgWith(1,gitResponse).returns(new PassThrough())
+                .onSecondCall().callsArgWith(1,repoResponse).returns(new PassThrough());
 
             return gitService.getUser('pekosog').then(
                 function(user){
                     //console.log(user);
                     user.login.should.equal('pekosoG');
-                    //user.should.have.property('repos');
+                    user.should.have.property('repos');
                 }
             );
         })
